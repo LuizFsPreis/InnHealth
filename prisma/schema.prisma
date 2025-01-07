@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("tccifsc_PRISMA_URL") 
+  directUrl = env("tccifsc_URL_NON_POOLING")
+}
+
+model Usuario {
+  id              String  @id @default(uuid())
+  nome            String
+  email           String  @unique
+  senha           String  @db.Text
+  papel           String?
+  cidade          String?
+  curso           String?
+  sit             String?
+  sobre           String?
+  userPerfilImage String?
+  userCapaImage   String?
+
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime? @updatedAt @map("atualizado_em")
+  ultimoAcesso DateTime? @map("ultimo_acesso")
+
+  Empresa Empresa[] @relation("UserId")
+  Favoritos Favoritos[] @relation("FavoritoId")
+
+  @@index([id])
+  @@index([email])
+  usuario_vaga usuario_vaga[] @relation("userVaga")
+  usuario_curso usuario_curso[] @relation("userCurso")
+}
+
+model Empresa {
+  nome      String
+  cnpj      String @id
+  descricao String
+
+  usuario   Usuario @relation("UserId", fields: [usuarioId], references: [id])
+  usuarioId String  @unique
+
+  Vaga Vaga[] @relation("EmpId")
+}
+
+model Vaga {
+  id          Int    @id @default(autoincrement())
+  titulo      String
+  local       String
+  modalidade  String
+  requisitos  String
+  senioridade String
+  contatacao  String
+  descricao   String 
+  salario     String @default("A combinar")
+  empImage    String @default("https://92.113.34.132:3030/upload/57b34340-9a4d-4246-a045-e54453e40c2a/perfil/57b34340-9a4d-4246-a045-e54453e40c2a.png")
+  empCapaImage String @default("https://92.113.34.132:3030/upload/57b34340-9a4d-4246-a045-e54453e40c2a/capa/57b34340-9a4d-4246-a045-e54453e40c2a.jpg")
+ 
+  Empresa   Empresa @relation("EmpId", fields: [empresaId], references: [cnpj])
+  empresaId String
+
+  Curso_vaga Curso_vaga[] @relation("CursoVagaId")
+
+  usuario_vaga usuario_vaga[] @relation("vagaUser")
+}
+
+model Curso_vaga {
+  id Int @id @unique @default(autoincrement())
+
+  Curso curso @relation("CursoVagaId", fields: [cursoId], references: [id])
+  cursoId Int
+  
+  vaga Vaga @relation("CursoVagaId", fields: [vagaId], references: [id])
+  vagaId Int
+  
+  @@unique([cursoId, vagaId])
+}
+
+model usuario_vaga{
+  id Int @id @unique @default(autoincrement())
+
+  usuario Usuario @relation("userVaga", fields: [userId], references: [id])
+  userId String
+
+  vaga Vaga @relation("vagaUser", fields: [vagaId], references: [id])
+  vagaId Int
+
+  @@unique([userId, vagaId])
+}
+
+model usuario_curso{
+  id Int @id @unique @default(autoincrement())
+
+  usuario Usuario @relation("userCurso", fields: [userId], references: [id])
+  userId String
+
+  Curso curso @relation("cursoUser", fields: [cursoId], references: [id])
+  cursoId Int
+
+  @@unique([userId, cursoId])
+}
+
+model curso {
+  id Int @id @unique
+
+  Favorito Favoritos[] @relation("FavoritoCursoId")
+
+  Curso_vaga Curso_vaga[] @relation("CursoVagaId")
+
+  usuario_curso usuario_curso[] @relation("cursoUser")
+}
+
+model Favoritos {
+  id Int @id @default(autoincrement())
+
+  Curso curso @relation("FavoritoCursoId", fields: [cursoId], references: [id])
+  cursoId Int
+
+  Usuario Usuario @relation("FavoritoId", fields: [usuarioId], references: [id])
+  usuarioId String
+  
+  @@unique([usuarioId, cursoId])
+}
