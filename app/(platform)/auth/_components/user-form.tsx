@@ -7,7 +7,6 @@ import {
   UsuarioUpsertSchema,
 } from '@/actions/usuario/schema'
 import { useAction } from '@/hooks/use-action'
-import { dashboardRoute } from '@/lib/routes'
 import { cn } from '@/lib/utlis'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Usuario } from '@prisma/client'
@@ -41,7 +40,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
     },
   })
 
-  const { create, delete: del, update } = action.usuario()
+  const { create,  update } = action.usuario()
 
   const { execute } = useAction(create, {
     onSuccess: ({ id }) => {
@@ -55,15 +54,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
     onSuccess: () => setWarn('Usuário atualizado com sucesso.'),
     onError: setWarn,
   })
-
-  const { execute: executeDelete } = useAction(del, {
-    onSuccess: () => {
-      setWarn('Usuário excluído com sucesso.')
-      router.push(`${dashboardRoute}/usuarios`)
-    },
-    onError: setWarn,
-  })
-
+  
   const onSubmit = async (data: z.infer<typeof UsuarioUpsertSchema>) => {
     setWarn(undefined)
 
@@ -87,22 +78,6 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
         <div className="flex items-center gap-x-2 text-sm *:rounded">
           {warn && <span className="bg-alternate p-2">{warn}</span>}
 
-          {user && (
-            <button
-              type="button"
-              className={cn(
-                'bg-primary p-2 font-bold uppercase',
-                loading ? 'bg-alternate' : 'bg-primary text-alternate',
-              )}
-              onClick={async () => {
-                if (confirm('Deseja realmente excluir este usuário?'))
-                  await executeDelete({ where: { id: user.id } })
-              }}
-              disabled={loading}
-            >
-              Excluir
-            </button>
-          )}
 
           <button
             type="submit"

@@ -50,12 +50,8 @@ export async function PUT(request: NextRequest) {
         email: body.email,
         senha: body.senha,
         papel: body.papel || null,
-        cidade: body.cidade || null,
         curso: body.curso || null,
-        sit: body.sit || null,
-        sobre: body.sobre || null,
-        userPerfilImage: body.userPerfilImage || null,
-        userCapaImage: body.userCapaImage || null,
+        sit: body.sit || null
       },
     });
 
