@@ -17,7 +17,7 @@ import {
   export default function Map({ setCoordinates }: MapProps) {
     const [position, setPosition] = useState<[number, number]>([
       -23.55052, -46.633308,
-    ]); // Posição inicial
+    ]);
     const [address, setAddress] = useState(""); // Estado para o campo de busca de endereço
   
     // Atualizar a posição do mapa quando as coordenadas mudarem
@@ -25,7 +25,7 @@ import {
       const map = useMap();
       useEffect(() => {
         if (map) {
-          map.setView(position); // Atualiza a posição do mapa
+          map.setView(position);
         }
       }, [position, map]);
   
@@ -36,11 +36,9 @@ import {
       useMapEvents({
         click(e) {
           const { lat, lng } = e.latlng;
-          console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-          setPosition([lat, lng]);
+          setPosition([lat, lng]); 
           setCoordinates(lat.toString(), lng.toString());
-          // Fazer a geocodificação reversa para obter o nome do endereço
-          getAddressFromCoordinates(lat, lng);
+          getAddressFromCoordinates(lat, lng); // Busca endereço via coordenada
         },
       });
   
