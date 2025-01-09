@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Header } from "./_components/header";
+import { Header } from "./_components/Header";
 import { isLoggedIn } from "@/lib/auth/session-user";
-import { Footer } from "./_components/footer";
+import { Footer } from "./_components/Footer";
 import { AppWrapper } from "./contexts/ctxHome";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +19,7 @@ export default async function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <Header />
-        <div className="flex flex-col min-h-screen p-8">{children}</div>
+        <div className="flex flex-col min-h-screen">{children}</div>
 
         <Footer />
       </body>

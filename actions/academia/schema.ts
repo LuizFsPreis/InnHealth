@@ -13,8 +13,10 @@ export const AcademiaSchema = z.object({
   descricao: z
     .string({ required_error: "A descrição é obrigatória" })
     .min(10, { message: "A descrição deve ter ao menos 10 caracteres" }),
+  telefone: z
+    .string()
+    .min(10, { message: "O telefone deve ter ao menos 10 digitos" }),
 
   latitude: z.string(),
   longitude: z.string(),
-  telefone: z.string(),
 });

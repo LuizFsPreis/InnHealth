@@ -9,10 +9,8 @@ import {
   import { useState, useEffect } from "react";
   import "leaflet/dist/leaflet.css";
   import L from "leaflet";
+import { MapProps } from "@/app/types";
   
-  interface MapProps {
-    setCoordinates: (lat: string, lng: string) => void;
-  }
   
   export default function Map({ setCoordinates }: MapProps) {
     const [position, setPosition] = useState<[number, number]>([

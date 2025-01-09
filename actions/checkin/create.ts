@@ -3,22 +3,22 @@
 import { db } from '@/lib/db'
 import { dashboardRoute } from '@/lib/routes'
 import { ActionState, safeAction } from '@/lib/safe-action'
-import { Academia } from '@prisma/client'
+import { Academia, Checkin } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { AcademiaSchema } from './schema'
+import { checkinSchema } from './schema'
 
-type InputType = z.infer<typeof AcademiaSchema>
-type ReturnType = ActionState<InputType, Academia>
+type InputType = z.infer<typeof checkinSchema>
+type ReturnType = ActionState<InputType, Checkin>
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { nome, descricao, latitude, longitude, telefone} = data
+  const { academiaId, usuarioId} = data
 
   let academia
 
   try {
-    academia = await db.academia.create({
-      data: { nome, descricao, latitude, longitude, telefone},
+    academia = await db.checkin.create({
+      data: { academiaId, usuarioId},
     })
   } catch(err) {
     return { error: `Ocorreu um erro ao criar, tente novamente mais tarde ${err}` }
@@ -29,4 +29,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: academia }
 }
 
-export const createAction = safeAction(AcademiaSchema, handler)
+export const createAction = safeAction(checkinSchema, handler)

@@ -2,10 +2,9 @@
 import { AcademiaSchema } from "@/actions/academia/schema";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { z } from "zod";
 
 // Importação dinâmica do componente Map para evitar problemas de renderização no servidor
-const Map = dynamic(() => import("../_components/map"), { ssr: false });
+const Map = dynamic(() => import("../_components/Map"), { ssr: false });
 
 export default function FormAcademia() {
     
@@ -30,8 +29,6 @@ export default function FormAcademia() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
     // Validação com o esquema Zod
     const result = AcademiaSchema.safeParse(formData);
 
@@ -44,7 +41,6 @@ export default function FormAcademia() {
       return;
     }
 
-    // Se a validação for bem-sucedida, envie os dados
     const response = await fetch("/api/academia/cadastrar", {
       method: "POST",
       headers: {
@@ -70,7 +66,7 @@ export default function FormAcademia() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full px-4 sm:px-8">
+    <div className="flex flex-col items-center w-full p-8 px-4 sm:px-8">
       <h1 className="text-center w-full font-bold text-2xl mb-4 ">
         Cadastrar Academia
       </h1>

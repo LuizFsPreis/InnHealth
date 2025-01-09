@@ -1,11 +1,13 @@
 import Divider from "./_components/divider";
+import Feed from "./_components/feed/Feed";
+import HeroSection from "./_components/HeroSection";
 
 export default function Home() {
+ 
   return (
     <div className="flex flex-col w-full h-full">
-      <Divider titulo="Academias" />
-
-      <div className="bg-slate-400 w-full h-full"></div>
+      <HeroSection />
+      <Feed />
     </div>
   );
 }

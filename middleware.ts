@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
 import { authRoutePrefix, dashboardRoute } from "./lib/routes";
-import { signOut } from "next-auth/react";
 
 export default withAuth(
   async function middleware({ headers, nextUrl, nextauth: { token } }) {

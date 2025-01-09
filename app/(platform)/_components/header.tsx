@@ -3,8 +3,8 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth/auth-config";
 import { isAdmin, isLoggedIn } from "@/lib/auth/session-user";
-import LogoutComp from "./logout";
 import { Menu } from "./menu";
+import LogoutComp from "./Logout";
 
 export const Header = async () => {
   const session = await getServerSession(authConfig);
