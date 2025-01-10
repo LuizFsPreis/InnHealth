@@ -7,9 +7,11 @@ export default function ModalCheckin({
   toggle,
   academia,
 }: CheckinProps) {
+  const session = useSession();
+  
   if (!isOpen) return null;
 
-  const session = useSession();
+  
   const lat = parseFloat(academia.latitude ?? "0");
   const lng = parseFloat(academia.longitude ?? "0");
 
