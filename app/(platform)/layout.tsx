@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
-import { Header } from "./_components/Header";
+import { Header } from "./_components/header";
 import { isLoggedIn } from "@/lib/auth/session-user";
-import { Footer } from "./_components/Footer";
+import { Footer } from "./_components/footer";
 import { HomeWrapper } from "../contexts/ctxHome";
 
 const inter = Inter({ subsets: ["latin"] });

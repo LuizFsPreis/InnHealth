@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 // Importação dinâmica do componente Map para evitar problemas de renderização no servidor
-const Map = dynamic(() => import("../_components/Map"), { ssr: false });
+const Map = dynamic(() => import("../_components/map"), { ssr: false });
 
 export default function FormAcademia() {
     

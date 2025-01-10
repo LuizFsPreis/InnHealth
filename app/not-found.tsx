@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Header } from "./(platform)/_components/Header";
-import { Footer } from "./(platform)/_components/Footer";
+import { Header } from "./(platform)/_components/header";
+import { Footer } from "./(platform)/_components/footer";
 
 export default async function NotFound() {
   return (
