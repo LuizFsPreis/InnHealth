@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "./_components/Header";
 import { isLoggedIn } from "@/lib/auth/session-user";
 import { Footer } from "./_components/Footer";
-import { AppWrapper } from "./contexts/ctxHome";
+import { HomeWrapper } from "../contexts/ctxHome";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +14,14 @@ export default async function RootLayout({
   
   const isLogged = await isLoggedIn();
   return (
-    <AppWrapper>
+    <HomeWrapper>
     <html lang="pt-br">
       <body className={inter.className}>
         <Header />
-        <div className="flex flex-col min-h-screen">{children}</div>
-
+        <div className="flex flex-col min-h-screen bg-gray-100">{children}</div>
         <Footer />
       </body>
     </html>
-    </AppWrapper>
+    </HomeWrapper>
   );
 }

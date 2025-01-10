@@ -1,19 +1,16 @@
 "use client";
 import { Academia } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import ModalCheckin from "./ModalCheckin";
+import ModalCheckin from "../modals/ModalCheckin";
 
 export default function CardAcademia({ academia }: { academia: Academia }) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const session = useSession();
-  const router = useRouter();
   const MENSAGEM = `Olá, me chamo ${session?.data?.user?.name} e gostaria de entrar em contato com você!`;
 
   const handleClick = () => {
     setModalOpen(!modalOpen)
-    // router.push(`/academia/${academia.id}`)
   };
 
   const toggleModal = () => {
@@ -23,7 +20,7 @@ export default function CardAcademia({ academia }: { academia: Academia }) {
   return (
     <>
       <div
-        className="bg-white p-6 rounded-lg shadow-md w-full hover:bg-mercuryDark"
+        className="bg-white p-6 rounded-lg shadow-md w-full hover:bg-alternate"
         onClick={handleClick}
       >
         <div className="flex justify-between items-center">

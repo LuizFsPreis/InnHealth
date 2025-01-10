@@ -20,8 +20,6 @@ model Usuario {
   email String  @unique
   senha String  @db.Text
   papel String?
-  curso String?
-  sit   String?
 
   criadoEm     DateTime  @default(now()) @map("criado_em")
   atualizadoEm DateTime? @updatedAt @map("atualizado_em")
@@ -31,22 +29,22 @@ model Usuario {
 }
 
 model Academia {
-  id          String @id @default(uuid())
-  nome        String
-  descricao   String
-  telefone    String
-  latitude    String
-  longitude   String
+  id        String @id @default(uuid())
+  nome      String
+  descricao String
+  telefone  String
+  latitude  String
+  longitude String
 
   checkin Checkin[] @relation("Academia_Usuario")
 }
 
 model Checkin {
-  id         String @id @default(uuid())
-  data       DateTime? @default(now()) @map("checkin_em")
-
-  usuario    Usuario @relation("Usuario_Academia", fields: [usuarioId], references: [id])
-  usuarioId  String
+  id           String    @id @default(uuid())
+  data         DateTime? @default(now()) @map("checkin_em")
+  nomeAcademia String
+  usuario      Usuario   @relation("Usuario_Academia", fields: [usuarioId], references: [id])
+  usuarioId    String
 
   academia   Academia @relation("Academia_Usuario", fields: [academiaId], references: [id])
   academiaId String

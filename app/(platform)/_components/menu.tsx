@@ -84,13 +84,9 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
               <li className="hover:font-bold">
                 <Link href="/perfil">Meu Perfil</Link>
               </li>
-              {session.data?.user?.papel == "J" ? (
-                <li className="hover:font-bold">
-                  <Link href="/empresa/home">Minha Empresa</Link>
-                </li>
-              ) : (
-                ""
-              )}
+              <li className="hover:font-bold">
+                <Link href="/perfil">Editar Perfil</Link>
+              </li> 
               <LogoutComp />
             </>
           ) : (

@@ -1,6 +1,6 @@
 'use client'
 import { SearchIcon } from "lucide-react";
-import { useApp } from "../contexts/ctxHome";
+import { useApp } from "../../contexts/ctxHome";
 import { useState, useEffect } from "react";
 
 export default function SearchBar() {

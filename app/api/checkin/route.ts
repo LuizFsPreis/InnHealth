@@ -1,19 +1,23 @@
 
 import { action } from "@/actions";
+import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const limit = parseInt(searchParams.get("limit") || "20", 10);
+
+  const id = searchParams.get("id");
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "20");
   
-  // Exemplo de filtro: adaptável ao que você precisa
-  const where = {}; // Construa sua condição `where` aqui com base em query params
+  if(!id) return NextResponse.json({ error: "Parametro 'id' é necessário!" }, { status: 400 });
+
+  const where: Prisma.CheckinWhereInput = {usuarioId: id};
 
   try {
-    const result = await action.checking().findMany(page, limit, where);
+    const result = await action.checking().finByUser(page, limit, where);
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao buscar dados" }, { status: 500 });
   }
 }
