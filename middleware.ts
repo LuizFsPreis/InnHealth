@@ -26,4 +26,4 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/perfil/:path*", '/empresa/cadastro'] };
+export const config = { matcher: ["/perfil/:path*", '/academia/cadastrar'] };
