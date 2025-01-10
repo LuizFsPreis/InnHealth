@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth/auth-config";
 import { isAdmin, isLoggedIn } from "@/lib/auth/session-user";
 import { Menu } from "./menu";
-import LogoutComp from "./Logout";
+import LogoutComp from "./logout";
 import EditPerfil from "./EditPerfil";
 
 export const Header = async () => {

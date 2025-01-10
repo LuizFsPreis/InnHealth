@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../../../contexts/ctxHome";
 import { Checkin } from "@prisma/client";
-import Spinner from "../../_components/Spinner";
+import Spinner from "../../_components/spinner";
 import CardChekin from "./CardCheckin";
 import { useSession } from "next-auth/react";
 
