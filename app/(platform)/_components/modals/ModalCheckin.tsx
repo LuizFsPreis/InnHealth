@@ -1,5 +1,5 @@
 import { CheckinProps } from "@/app/types";
-import MapView from "../../academia/_components/mapView";
+import MapView from "../../academia/_components/MapView";
 import { useSession } from "next-auth/react";
 
 export default function ModalCheckin({
