@@ -6,19 +6,20 @@ export default function ModalEditPerfil({
   isOpen,
   toggle,
 }: ModalEditPerfilProps) {
-
-  if (!isOpen) return null;
-
   const session = useSession();
   const user = session.data?.user;
   const [formData, setFormData] = useState({
     nome: user?.name ?? "",
     email: user?.email ?? "",
-    papel: "Usuario", 
+    papel: "Usuario",
   });
 
+  if (!isOpen) return null;
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
