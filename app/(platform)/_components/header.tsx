@@ -4,7 +4,7 @@ import { authConfig } from "@/lib/auth/auth-config";
 import { isAdmin, isLoggedIn } from "@/lib/auth/session-user";
 import { Menu } from "./menu";
 import LogoutComp from "./logout";
-import EditPerfil from "./EditPerfil";
+import EditPerfil from "./editPerfil";
 
 export const Header = async () => {
   const session = await getServerSession(authConfig);

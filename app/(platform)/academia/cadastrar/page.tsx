@@ -121,7 +121,7 @@ export default function FormAcademia() {
             {errors.descricao && (
               <p className="text-sm text-red-500">{errors.descricao}</p>
             )}
-          </div>
+          </div> 
 
           <div className="flex flex-col gap-2">
             <label className="text-sm text-slate-600">Localização:</label>
