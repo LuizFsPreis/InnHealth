@@ -15,12 +15,14 @@ export default function Map({ setCoordinates }: MapProps) {
   const [position, setPosition] = useState<[number, number]>([
     -23.55052, -46.633308,
   ]);
-  const [address, setAddress] = useState(""); // Estado para o campo de busca de endereço
-
-  // Atualizar a posição do mapa quando as coordenadas mudarem
+  const [address, setAddress] = useState("");
+  
   const MapUpdater = () => {
     const map = useMap();
+    
     useEffect(() => {
+      map.remove();
+
       if (map) {
         map.setView(position);
       }
