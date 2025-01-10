@@ -1,4 +1,4 @@
-import Divider from "./_components/Divider";
+import Divider from "./_components/divider";
 import Feed from "./_components/feed/Feed";
 import HeroSection from "./_components/HeroSection";
 

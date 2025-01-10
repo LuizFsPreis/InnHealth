@@ -5,7 +5,7 @@ import { useApp } from "../../../contexts/ctxHome";
 import { Academia } from "@prisma/client";
 import CardAcademia from "./CardAcademia";
 import Spinner from "../Spinner";
-import Divider from "../Divider";
+import Divider from '../divider';
 
 export default function Feed() {
   const { searchParam, isSearching, setisSearching } = useApp();

@@ -1,6 +1,6 @@
 import { authConfig } from "@/lib/auth/auth-config";
 import { getServerSession } from "next-auth";
-import Divider from "../_components/Divider";
+import Divider from "../_components/divider";
 import Feed from "./_components/FeedCheckin";
 import { Edit } from "lucide-react";
 
