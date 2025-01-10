@@ -27,7 +27,7 @@ export default function Feed() {
         const data = await res.json();
         setcheckins(data.checkins);
         setTotal(data.totalCount);
-        setisSearching(false);
+        setisSearching(false); 
       } catch (error) {
         console.error(error);
       }
