@@ -20,11 +20,12 @@ export default function Feed() {
   useEffect(() => {
     const fetchAcademias = async () => {
       try {
-        const res = await fetch(`/api/checkin?id=5${session.data?.user?.id}`);
+        const res = await fetch(`/api/checkin?id=${session.data?.user?.id}`);
 
         if (!res.ok) return;
-
+        
         const data = await res.json();
+        console.log(data)
         setcheckins(data.checkins);
         setTotal(data.totalCount);
         setisSearching(false); 

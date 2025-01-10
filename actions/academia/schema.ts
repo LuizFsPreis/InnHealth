@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-const UsuarioIdSchema = z.object({
-  id: z.string({ required_error: "O id é obrigatório" }),
-});
+const regexTelefone = /^\(\d{2}\)\s\d{4,5}-\d{4}$/
 
 export const AcademiaSchema = z.object({
   nome: z
@@ -12,9 +10,9 @@ export const AcademiaSchema = z.object({
 
   descricao: z
     .string({ required_error: "A descrição é obrigatória" })
-    .min(10, { message: "A descrição deve ter ao menos 10 caracteres" }),
+    .min(10, { message: "Descrição inválida" }),
   telefone: z
-    .string()
+    .string().regex(regexTelefone, "Número de telefone inválido")
     .min(10, { message: "O telefone deve ter ao menos 10 digitos" }),
 
   latitude: z.string(),

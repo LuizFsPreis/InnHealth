@@ -2,12 +2,12 @@
 import { AcademiaSchema } from "@/actions/academia/schema";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import InputMask from 'react-input-mask';
 
 // Importação dinâmica do componente Map para evitar problemas de renderização no servidor
 const Map = dynamic(() => import("../_components/map"), { ssr: false });
 
 export default function FormAcademia() {
-    
   const [formData, setFormData] = useState({
     nome: "",
     descricao: "",
@@ -29,14 +29,16 @@ export default function FormAcademia() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // Validação com o esquema Zod
+    e.preventDefault();
     const result = AcademiaSchema.safeParse(formData);
 
     if (!result.success) {
       const newErrors: { [key: string]: string } = {};
-      result.error.errors.forEach((err: { path: (string | number)[]; message: string; }) => {
-        newErrors[err.path[0]] = err.message;  // Armazenando os erros no estado
-      });
+      result.error.errors.forEach(
+        (err: { path: (string | number)[]; message: string }) => {
+          newErrors[err.path[0]] = err.message; // Armazenando os erros no estado
+        }
+      );
       setErrors(newErrors);
       return;
     }
@@ -75,8 +77,8 @@ export default function FormAcademia() {
         className="flex flex-col bg-mercury mt-4 rounded-md p-4 sm:p-8 w-full sm:w-2/3 gap-6 sm:gap-8 shadow-md"
       >
         <div className="flex flex-col gap-4">
-          <div className="flex gap-4 w-full">
-            <div className="flex flex-col gap-2 w-1/2">
+          <div className="flex flex-col md:flex-row gap-4 w-full">
+            <div className="flex flex-col gap-2 md:w-1/2">
               <label className="text-sm text-slate-600">Nome:</label>
               <input
                 type="text"
@@ -91,17 +93,23 @@ export default function FormAcademia() {
                 <p className="text-sm text-red-500">{errors.nome}</p>
               )}
             </div>
-            <div className="flex flex-col gap-2 w-1/2">
+            <div className="flex flex-col gap-2 md:w-1/2">
               <label className="text-sm text-slate-600">Telefone:</label>
-              <input
-                type="text"
-                name="telefone"
+              <InputMask
+                mask="(99) 99999-9999" // Máscara de telefone no formato (XX) XXXXX-XXXX
                 value={formData.telefone}
                 onChange={handleChange}
-                placeholder="Telefone para contato..."
-                className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
-                required
-              />
+              >
+                {(inputProps: any) => (
+                  <input
+                    {...inputProps}
+                    name="telefone"
+                    placeholder="Telefone para contato..."
+                    className="focus:ring-2 focus:ring-alternateDark focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-4 ring-1 ring-slate-200 shadow-sm"
+                    required
+                  />
+                )}
+              </InputMask>
               {errors.telefone && (
                 <p className="text-sm text-red-500">{errors.telefone}</p>
               )}
@@ -121,7 +129,7 @@ export default function FormAcademia() {
             {errors.descricao && (
               <p className="text-sm text-red-500">{errors.descricao}</p>
             )}
-          </div> 
+          </div>
 
           <div className="flex flex-col gap-2">
             <label className="text-sm text-slate-600">Localização:</label>

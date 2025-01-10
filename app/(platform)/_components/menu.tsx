@@ -90,7 +90,9 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
               <LogoutComp />
             </>
           ) : (
-            <></>
+            <li className="hover:font-bold">
+                <Link href="/auth/login">Login</Link>
+            </li>
           )}
         </ul>
       </div>

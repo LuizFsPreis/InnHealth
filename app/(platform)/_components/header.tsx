@@ -1,20 +1,16 @@
 import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authConfig } from "@/lib/auth/auth-config";
 import { isAdmin, isLoggedIn } from "@/lib/auth/session-user";
 import { Menu } from "./menu";
 import LogoutComp from "./logout";
 import EditPerfil from "./EditPerfil";
 
 export const Header = async () => {
-  const session = await getServerSession(authConfig);
   const isloged = await isLoggedIn();
   const Admin = await isAdmin();
 
   return (
     <header className="sticky top-0 z-50 bg-mercury shadow-sm">
       <Menu>
-
         {!Admin ? (
           <li className="group">
             <Link href={"/academia/cadastrar"}>Cadastrar Academia</Link>
@@ -34,7 +30,7 @@ export const Header = async () => {
                 <Link href="/perfil">{isloged ? "Meu Perfil" : "Entrar"}</Link>
               </li>
               <li className="hover:font-bold">
-                <EditPerfil/>
+                {isloged ? <EditPerfil /> : ""}
               </li>
 
               {isloged ? (

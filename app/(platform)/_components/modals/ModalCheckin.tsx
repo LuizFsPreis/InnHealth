@@ -41,7 +41,7 @@ export default function ModalCheckin({
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg w-1/3 p-6">
+      <div className="bg-white rounded-lg w-[80%] md:w-1/3 p-6">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">{academia.nome}</h2>
           <button

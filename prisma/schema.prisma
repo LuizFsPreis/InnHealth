@@ -40,7 +40,7 @@ model Academia {
 
 model Checkin {
   id           String    @id @default(uuid())
-  data         DateTime? @default(now()) @map("checkin_em")
+  data         DateTime @default(now()) @map("checkin_em")
   nomeAcademia String
   usuario      Usuario   @relation("Usuario_Academia", fields: [usuarioId], references: [id])
   usuarioId    String

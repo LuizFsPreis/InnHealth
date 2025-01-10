@@ -29,7 +29,7 @@ export default function CardAcademia({ academia }: { academia: Academia }) {
             Telefone:{" "}
             <a
               href={`https://wa.me/${
-                academia.telefone
+                academia.telefone.replace(/\D/g, "")
               }?text=${encodeURIComponent(MENSAGEM)}`}
               target="_blank"
               rel="noopener noreferrer"
