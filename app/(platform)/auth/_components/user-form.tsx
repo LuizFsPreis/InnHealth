@@ -122,28 +122,6 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
         )}
       </div>
 
-      {user ? (
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="novaSenha" className="font-bold">
-            Nova Senha
-          </label>
-          <input
-            {...register('novaSenha')}
-            id="novaSenha"
-            type="text"
-            className="rounded bg-alternate/20 p-2"
-            disabled={loading}
-          />
-          {(errors as _FieldErrors).novaSenha && (
-            <span className="text-sm">
-              {(errors as _FieldErrors).novaSenha?.message}
-            </span>
-          )}
-          <span className="text-sm">
-            Deixe em branco para manter a senha atual.
-          </span>
-        </div>
-      ) : (
         <div className="flex flex-col gap-y-2">
           <label htmlFor="senha" className="font-bold">
             Senha
@@ -151,7 +129,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           <input
             {...register('senha')}
             id="senha"
-            type="text"
+            type="password"
             className="rounded bg-alternate/20 p-2"
             disabled={loading}
           />
@@ -160,9 +138,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
               {(errors as _FieldErrors).senha?.message}
             </span>
           )}
-          <span className="text-sm">Digite uma senha para o novo usuário.</span>
         </div>
-      )}
 
       <div className="flex flex-col gap-y-2">
       </div>
