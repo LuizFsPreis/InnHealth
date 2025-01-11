@@ -36,7 +36,7 @@ export default function FormAcademia() {
       const newErrors: { [key: string]: string } = {};
       result.error.errors.forEach(
         (err: { path: (string | number)[]; message: string }) => {
-          newErrors[err.path[0]] = err.message; // Armazenando os erros no estado
+          newErrors[err.path[0]] = err.message;
         }
       );
       setErrors(newErrors);
@@ -52,6 +52,7 @@ export default function FormAcademia() {
     });
 
     const data = await response.json();
+
     if (response.ok) {
       alert("Academia cadastrada com sucesso!");
     } else {

@@ -13,7 +13,7 @@ type InputType = z.infer<typeof UsuarioUpdateSchema>
 type ReturnType = ActionState<InputType, Usuario>
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { id, nome, email, novaSenha} = data
+  const { id, nome, email, papel} = data
 
   let user
 
@@ -22,16 +22,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
     if (!existingUser) return { error: 'Usuário não encontrado' }
 
-    if (existingUser.email !== email)
-      if (await db.usuario.findUnique({ where: { email } }))
-        return { error: 'E-mail já cadastrado' }
-
-    const senha = novaSenha ? await hashPassword(novaSenha) : undefined
-
     user = await db.usuario.update({
       where: { id },
-      data: { nome, email, senha },
+      data: { nome, email, papel},
     })
+    
   } catch {
     return { error: 'Ocorreu um erro ao atualizar, tente novamente mais tarde' }
   }

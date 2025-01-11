@@ -20,6 +20,8 @@ export const UsuarioSchema = z.object({
     .min(6, { message: 'A nova senha deve ter no mínimo 6 caracteres' })
     .max(50, { message: 'A senha deve ter no máximo 50 caracteres' }),
 
+  papel: z.string()
+
 })
 
 export const UpdTipoUserSchema = z.object({
@@ -32,14 +34,7 @@ export const UpdTipoUserSchema = z.object({
 export const UsuarioUpdateSchema = UsuarioIdSchema.merge(
   UsuarioSchema.omit({
     senha: true,
-  }).merge(
-    z.object({
-      novaSenha: z.string().refine(({ length }) => !length || length >= 6, {
-        message: 'A nova senha deve ter no mínimo 6 caracteres',
-      }),
-    }),
-  ),
-)
+  }))
 
 export const UsuarioUpsertSchema = z.discriminatedUnion('new', [
   z.object({ new: z.literal(true) }).merge(UsuarioSchema),

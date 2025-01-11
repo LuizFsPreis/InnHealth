@@ -1,5 +1,4 @@
 import { action } from "@/actions";
-import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -7,9 +6,11 @@ export async function GET(request: NextRequest) {
     // Obtém os parâmetros de busca da URL
     const id = request.nextUrl.searchParams.get("id");
 
-    console.log(id)
     if (!id) {
-      return NextResponse.json({ error: "ID de usuário não fornecido" }, { status: 400 });
+      return NextResponse.json(
+        { error: "ID de usuário não fornecido" },
+        { status: 400 }
+      );
     }
 
     // Busca o usuário no banco de dados
@@ -17,45 +18,47 @@ export async function GET(request: NextRequest) {
       where: { id: id },
     });
 
-    console.log(user)
-
     if (!user) {
-      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
-    console.error("Erro ao buscar usuário:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Erro interno do servidor" },
+      { status: 500 }
+    );
   }
 }
 
 // Método PUT para atualizar as informações de um usuário específico
 export async function PUT(request: NextRequest) {
   try {
-    const id = request.nextUrl.searchParams.get("id");
-
-    if (!id) {
-      return NextResponse.json({ error: "ID de usuário não fornecido" }, { status: 400 });
-    }
-
-    // Pega o corpo da requisição (os dados que queremos atualizar)
     const body = await request.json();
 
+    if (!body.id) {
+      return NextResponse.json(
+        { error: "ID de usuário não fornecido" },
+        { status: 400 }
+      );
+    }
+
     // Atualiza o usuário no banco de dados
-    const updatedUser = await db.usuario.update({
-      where: { id: String(id) },
-      data: {
-        nome: body.nome,
-        email: body.email,
-        senha: body.senha,
-        papel: body.papel || null,
-      },
+    const updatedUser = await action.usuario().update({
+      id: body.id,
+      nome: body.nome,
+      email: body.email,
+      papel: body.papel,
     });
 
     return NextResponse.json(updatedUser, { status: 200 });
   } catch (error) {
-    console.error("Erro ao atualizar usuário:", error);
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Erro interno do servidor" },
+      { status: 500 }
+    );
   }
 }

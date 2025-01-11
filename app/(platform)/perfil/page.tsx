@@ -2,7 +2,6 @@ import { authConfig } from "@/lib/auth/auth-config";
 import { getServerSession } from "next-auth";
 import Divider from "../_components/divider";
 import Feed from "./_components/FeedCheckin";
-import { Edit } from "lucide-react";
 
 export default async function Perfil() {
   const session = await getServerSession(authConfig);

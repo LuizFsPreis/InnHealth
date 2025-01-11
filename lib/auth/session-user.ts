@@ -16,6 +16,6 @@ export const isAdmin = async () => {
   const user = await currentUser()
 
   return (
-    user?.papel === 'administrador' ? true : false
+    user?.papel === 'Administrador' ? true : false
   )
 }

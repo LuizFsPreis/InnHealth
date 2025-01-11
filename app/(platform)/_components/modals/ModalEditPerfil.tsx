@@ -1,6 +1,8 @@
+'use client'
 import { ModalEditPerfilProps } from "@/app/types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { Alert } from "@nextui-org/alert";
 
 export default function ModalEditPerfil({
   isOpen,
@@ -9,10 +11,13 @@ export default function ModalEditPerfil({
   const session = useSession();
   const user = session.data?.user;
   const [formData, setFormData] = useState({
+    id: user?.id,
     nome: user?.name ?? "",
     email: user?.email ?? "",
-    papel: "Usuario",
+    papel: user?.papel ?? "Usuario",
   });
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   if (!isOpen) return null;
 
@@ -28,11 +33,45 @@ export default function ModalEditPerfil({
     }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("/api/usuario", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setAlertMessage("Perfil atualizado com sucesso!");
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 2000); 
+      } else {
+        const data = await res.json();
+        setAlertMessage(`Erro ao atualizar: ${data.message}`);
+        setAlertVisible(true);
+        setTimeout(() => setAlertVisible(false), 2000);
+      }
+    } catch (error) {
+      setAlertMessage(`Erro de rede: ${error}`);
+      setAlertVisible(true);
+      setTimeout(() => setAlertVisible(false), 2000);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg w-1/3 p-6">
+        {alertVisible && (
+          <Alert
+            className="relative top-0 left-1/2 transform -translate-x-1/2 mt-4 w-full max-w-md"
+            description={alertMessage}
+            title="Notificação"
+          />
+        )}
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">Editar Perfil</h2>
           <button
