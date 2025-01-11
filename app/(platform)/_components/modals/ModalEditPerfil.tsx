@@ -64,7 +64,7 @@ export default function ModalEditPerfil({
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg w-1/3 p-6">
+      <div className="bg-white rounded-lg md:w-1/3 p-6">
         {alertVisible && (
           <Alert
             className="relative top-0 left-1/2 transform -translate-x-1/2 mt-4 w-full max-w-md"

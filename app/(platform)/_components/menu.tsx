@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import LogoutComp from "./logout";
+import EditPerfil from "./EditPerfil";
 
 export const Menu = ({ children: items }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,28 +74,34 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
         </div>
 
         <ul
-          className="no-scrollbar flex h-full snap-y flex-col gap-y-4 overflow-y-scroll text-center uppercase *:rounded *:bg-mercury/50 *:px-8 *:py-2"
-          onClick={(e) => {
-            if (e.target instanceof HTMLAnchorElement) setIsMenuOpen(false);
-          }}
-        >
-          {items}
-          {session.data?.user?.id ? (
-            <>
-              <li className="hover:font-bold">
-                <Link href="/perfil">Meu Perfil</Link>
-              </li>
-              <li className="hover:font-bold">
-                <Link href="/perfil">Editar Perfil</Link>
-              </li> 
-              <LogoutComp />
-            </>
-          ) : (
-            <li className="hover:font-bold">
-                <Link href="/auth/login">Login</Link>
-            </li>
-          )}
-        </ul>
+  className="no-scrollbar flex h-full snap-y flex-col gap-y-4 overflow-y-scroll text-center uppercase *:rounded *:bg-mercury/50 *:px-8 *:py-2"
+  onClick={(e) => {
+    // Verifica se o clique foi em um link ou fora do EditPerfil
+    if (
+      e.target instanceof HTMLAnchorElement || 
+      (e.target instanceof HTMLElement && !e.target.closest(".edit-perfil"))
+    ) {
+      setIsMenuOpen(false);
+    }
+  }}
+>
+  {items}
+  {session.data?.user?.id ? (
+    <>
+      <li className="hover:font-bold">
+        <Link href="/perfil">Meu Perfil</Link>
+      </li>
+      <li className="hover:font-bold edit-perfil">
+        <EditPerfil />
+      </li> 
+      <LogoutComp />
+    </>
+  ) : (
+    <li className="hover:font-bold">
+      <Link href="/auth/login">Login</Link>
+    </li>
+  )}
+</ul>
       </div>
     </nav>
   );
