@@ -28,9 +28,10 @@ export default function ModalCheckin({
       if (!session.data?.user?.id) router.push(authLoginRoute);
 
       const checkinCookie = Cookies.get("checkinDate");
+      const checkinUserId = Cookies.get("checkinUserId");
       const today = new Date().toISOString().split("T")[0];
 
-      if (checkinCookie === today) {
+      if (checkinCookie === today && checkinUserId === session.data?.user?.id) {
         setAlertMessage("Check-in já realizado hoje.");
         setAlertVisible(true);
         setTimeout(() => setAlertVisible(false), 2000);
@@ -71,6 +72,7 @@ export default function ModalCheckin({
       }
 
       Cookies.set("checkinDate", today, { expires:  1 });
+      Cookies.set("checkinUserId", session.data?.user?.id ?? '', { expires:  1 });
 
       setAlertMessage("Check-in realizado com sucesso!");
       setAlertVisible(true);

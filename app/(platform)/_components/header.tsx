@@ -24,7 +24,7 @@ export const Header = async () => {
           <div>Perfil</div>
           <div className="h-px w-0 rounded-full bg-primary/80 delay-100 duration-150 group-hover:w-full max-lg:sr-only" />
 
-          <div className="invisible absolute mt-2 w-60 rounded bg-mercury opacity-0 shadow duration-300 group-hover:visible group-hover:mt-6 group-hover:opacity-100 max-lg:hidden">
+          <div className="invisible absolute right-0 mt-2 w-60 rounded bg-mercury opacity-0 shadow duration-300 group-hover:visible group-hover:mt-6 group-hover:opacity-100 max-lg:hidden">
             <ul className="m-4 flex flex-col gap-y-4 text-start no-underline">
               <li className="hover:font-bold">
                 <Link href="/perfil">{isloged ? "Meu Perfil" : "Entrar"}</Link>

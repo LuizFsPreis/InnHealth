@@ -20,7 +20,7 @@ export const UsuarioSchema = z.object({
     .min(6, { message: 'A nova senha deve ter no mínimo 6 caracteres' })
     .max(50, { message: 'A senha deve ter no máximo 50 caracteres' }),
 
-  papel: z.string()
+  papel: z.string().default('Usuario')
 
 })
 
@@ -28,7 +28,7 @@ export const UpdTipoUserSchema = z.object({
   id: z
     .string({ required_error: 'O id é obrigatório' }),
   papel: z
-    .string({ required_error: 'O papel é obrigatório' })
+    .string().default('Usuario')
 })
 
 export const UsuarioUpdateSchema = UsuarioIdSchema.merge(

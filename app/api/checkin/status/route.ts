@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
     const checkin = await action.checking().last({ usuarioId });
 
     if (!checkin) {
-      return NextResponse.json({ error: "Nenhum check-in encontrado." }, { status: 404 });
-    }
+      return NextResponse.json({ status: false });
+    } 
 
     const dataAtual = new Date();
     const dataCheckin = new Date(checkin.data);

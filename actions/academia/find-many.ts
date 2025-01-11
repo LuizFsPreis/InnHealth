@@ -17,7 +17,7 @@ export const findManyAction = async (
     orderBy: { id: "asc" },
   });
 
-  const totalCount = await db.academia.count();
+  const totalCount = await db.academia.count({ where });
 
   return { academias, totalCount };
 };

@@ -1,4 +1,3 @@
-'use client'
 import { ModalEditPerfilProps } from "@/app/types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";

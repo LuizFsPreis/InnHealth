@@ -17,7 +17,7 @@ export const findManyAction = async (
     orderBy: { data: "desc" },
   });
 
-  const totalCount = await db.checkin.count();
+  const totalCount = await db.checkin.count({ where });
 
   return { checkins, totalCount };
 };
