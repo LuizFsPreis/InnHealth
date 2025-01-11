@@ -1,30 +1,30 @@
-'use client'
+"use client";
 
-import { action } from '@/actions'
+import { action } from "@/actions";
 import {
   UsuarioSchema,
   UsuarioUpdateSchema,
   UsuarioUpsertSchema,
-} from '@/actions/usuario/schema'
-import { useAction } from '@/hooks/use-action'
-import { cn } from '@/lib/utlis'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Usuario } from '@prisma/client'
-import { ArrowLeftCircleIcon } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { FieldErrors, useForm } from 'react-hook-form'
-import { z } from 'zod'
+} from "@/actions/usuario/schema";
+import { useAction } from "@/hooks/use-action";
+import { cn } from "@/lib/utlis";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Usuario } from "@prisma/client";
+import { ArrowLeftCircleIcon } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
+import { z } from "zod";
 
 type _FieldErrors = FieldErrors<
   z.infer<typeof UsuarioSchema> & z.infer<typeof UsuarioUpdateSchema>
->
+>;
 
 export const UserForm = ({ user }: { user?: Usuario }) => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [warn, setWarn] = useState<string>()
+  const [warn, setWarn] = useState<string>();
 
   const {
     handleSubmit,
@@ -38,29 +38,29 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
       nome: user?.nome,
       email: user?.email,
     },
-  })
+  });
 
-  const { create,  update } = action.usuario()
+  const { create, update } = action.usuario();
 
   const { execute } = useAction(create, {
     onSuccess: ({ id }) => {
-      setWarn('Usuário criado com sucesso.')
-      router.push(`/auth/login`)
+      setWarn("Usuário criado com sucesso.");
+      router.push(`/auth/login`);
     },
     onError: setWarn,
-  })
+  });
 
   const { execute: executeUpdate } = useAction(update, {
-    onSuccess: () => setWarn('Usuário atualizado com sucesso.'),
+    onSuccess: () => setWarn("Usuário atualizado com sucesso."),
     onError: setWarn,
-  })
-  
-  const onSubmit = async (data: z.infer<typeof UsuarioUpsertSchema>) => {
-    setWarn(undefined)
+  });
 
-    if (user) await executeUpdate(UsuarioUpdateSchema.parse(data))
-    else await execute(UsuarioSchema.parse(data))
-  }
+  const onSubmit = async (data: z.infer<typeof UsuarioUpsertSchema>) => {
+    setWarn(undefined);
+
+    if (user) await executeUpdate(UsuarioUpdateSchema.parse(data));
+    else await execute(UsuarioSchema.parse(data));
+  };
 
   return (
     <form
@@ -72,22 +72,21 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           <Link href={`/`}>
             <ArrowLeftCircleIcon className="me-4 inline size-6" />
           </Link>
-          {user ? 'Editar' : 'Criar'} Usuário
+          {user ? "Editar" : "Criar"} Usuário
         </div>
 
         <div className="flex items-center gap-x-2 text-sm *:rounded">
           {warn && <span className="bg-alternate p-2">{warn}</span>}
 
-
           <button
             type="submit"
             className={cn(
-              'bg-primary p-2 font-bold uppercase',
-              loading ? 'bg-alternate' : 'bg-primary text-alternate',
+              "bg-primary p-2 font-bold uppercase",
+              loading ? "bg-alternate" : "bg-primary text-alternate"
             )}
             disabled={loading}
           >
-            {loading ? 'Salvando...' : user ? 'Atualizar' : 'Criar'}
+            {loading ? "Salvando..." : user ? "Atualizar" : "Criar"}
           </button>
         </div>
       </div>
@@ -97,7 +96,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           Nome
         </label>
         <input
-          {...register('nome')}
+          {...register("nome")}
           id="nome"
           type="text"
           className="rounded bg-alternate/20 p-2"
@@ -111,7 +110,7 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
           E-mail
         </label>
         <input
-          {...register('email')}
+          {...register("email")}
           id="email"
           type="email"
           className="rounded bg-alternate/20 p-2"
@@ -122,26 +121,31 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
         )}
       </div>
 
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="senha" className="font-bold">
-            Senha
-          </label>
-          <input
-            {...register('senha')}
-            id="senha"
-            type="password"
-            className="rounded bg-alternate/20 p-2"
-            disabled={loading}
-          />
-          {(errors as _FieldErrors).senha && (
-            <span className="text-sm">
-              {(errors as _FieldErrors).senha?.message}
-            </span>
-          )}
-        </div>
-
       <div className="flex flex-col gap-y-2">
+        <label htmlFor="senha" className="font-bold">
+          Senha
+        </label>
+        <input
+          {...register("senha")}
+          id="senha"
+          type="password"
+          className="rounded bg-alternate/20 p-2"
+          disabled={loading}
+        />
+        {(errors as _FieldErrors).senha && (
+          <span className="text-sm">
+            {(errors as _FieldErrors).senha?.message}
+          </span>
+        )}
       </div>
+      <input
+        {...register("papel")}
+        id="papel"
+        type="text"
+        className="rounded bg-alternate/20 p-2 hidden"
+        value={"Usuario"}
+      />
+      <div className="flex flex-col gap-y-2"></div>
     </form>
-  )
-}
+  );
+};

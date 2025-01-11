@@ -20,7 +20,7 @@ export const UsuarioSchema = z.object({
     .min(6, { message: 'A nova senha deve ter no mínimo 6 caracteres' })
     .max(50, { message: 'A senha deve ter no máximo 50 caracteres' }),
 
-  papel: z.string().default('Usuario')
+  papel: z.string()
 
 })
 

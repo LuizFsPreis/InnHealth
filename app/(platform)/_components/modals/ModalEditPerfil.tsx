@@ -47,17 +47,18 @@ export default function ModalEditPerfil({
         setAlertVisible(true);
         setTimeout(() => {
           setAlertVisible(false);
-        }, 2000); 
+          window.location.reload();
+        }, 1000); 
       } else {
         const data = await res.json();
         setAlertMessage(`Erro ao atualizar: ${data.message}`);
         setAlertVisible(true);
-        setTimeout(() => setAlertVisible(false), 2000);
+        setTimeout(() => setAlertVisible(false), 1000);
       }
     } catch (error) {
       setAlertMessage(`Erro de rede: ${error}`);
       setAlertVisible(true);
-      setTimeout(() => setAlertVisible(false), 2000);
+      setTimeout(() => setAlertVisible(false), 1000);
     }
   };
 

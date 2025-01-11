@@ -2,7 +2,8 @@
 import { AcademiaSchema } from "@/actions/academia/schema";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
+import { Alert } from "@nextui-org/alert";
 
 const Map = dynamic(() => import("../_components/map"), { ssr: false });
 
@@ -16,6 +17,8 @@ export default function FormAcademia() {
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,20 +45,32 @@ export default function FormAcademia() {
       return;
     }
 
-    const response = await fetch("/api/academia/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch("/api/academia/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      alert("Academia cadastrada com sucesso!");
-    } else {
-      alert(`Erro: ${data.message}`);
+      if (response.ok) {
+        setAlertMessage("Academia cadastrada com sucesso!");
+      } else {
+        setAlertMessage(`Erro ao cadastrar academia!`);
+      }
+    } catch (error) {
+      setAlertMessage(
+        `Erro ao cadastrar academia, tente novamente mais tarde.`
+      );
+    } finally {
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+        window.location.reload();
+      }, 2000);
     }
   };
 
@@ -96,7 +111,7 @@ export default function FormAcademia() {
             <div className="flex flex-col gap-2 md:w-1/2">
               <label className="text-sm text-slate-600">Telefone:</label>
               <InputMask
-                mask="(99) 99999-9999" // Máscara de telefone no formato (XX) XXXXX-XXXX
+                mask="(99) 99999-9999"
                 value={formData.telefone}
                 onChange={handleChange}
               >
@@ -144,6 +159,13 @@ export default function FormAcademia() {
               Cadastrar
             </button>
           </div>
+          {alertVisible && (
+        <Alert
+          className="relative top-0 left-1/2 transform -translate-x-1/2 mt-4 w-full max-w-md"
+          description={alertMessage}
+          title="Notificação"
+        />
+      )}
         </div>
       </form>
     </div>

@@ -13,7 +13,7 @@ type InputType = z.infer<typeof UsuarioSchema>
 type ReturnType = ActionState<InputType, Usuario>
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { nome, email, senha } = data
+  const { nome, email, senha, papel } = data
 
   let user
 
@@ -22,7 +22,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: 'E-mail já cadastrado' }
 
     user = await db.usuario.create({
-      data: { nome, email, senha: await hashPassword(senha)},
+      data: { nome, email, papel, senha: await hashPassword(senha)},
     })
   } catch(err) {
     return { error: `Ocorreu um erro ao criar, tente novamente mais tarde ${err}` }

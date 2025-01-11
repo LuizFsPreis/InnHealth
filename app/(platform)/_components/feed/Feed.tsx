@@ -13,7 +13,7 @@ export default function Feed() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  const limit = 2;
+  const limit = 20;
 
   useEffect(() => {
     const fetchAcademias = async () => {

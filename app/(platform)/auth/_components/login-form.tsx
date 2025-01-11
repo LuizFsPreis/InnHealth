@@ -41,7 +41,7 @@ export const LoginForm = () => {
       });
 
       if (res?.ok) {
-        router.push(dashboardRoute);
+        window.location.href = dashboardRoute
       } else setWarn("E-mail ou senha incorretos.");
     } else setWarn("Preencha os campos corretamente.");
   };

@@ -15,9 +15,11 @@ export default function Feed() {
 
   const session = useSession();
 
-  const limit = 2;
+  const limit = 20;
 
   useEffect(() => {
+    setisSearching(true)
+    
     const fetchAcademias = async () => {
       try {
         const res = await fetch(`/api/checkin?id=${session.data?.user?.id}`);
