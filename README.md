@@ -26,7 +26,7 @@
 
 # InnHealth
 
-Site disponível em [inn-health.vercel.app](inn-health.vercel.app
+Site disponível em [inn-health.vercel.app](inn-health.vercel.app)
 
 
 
