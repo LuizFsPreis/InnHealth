@@ -15,6 +15,6 @@ export const AcademiaSchema = z.object({
     .string().regex(regexTelefone, "Número de telefone inválido")
     .min(10, { message: "O telefone deve ter ao menos 10 digitos" }),
 
-  latitude: z.string(),
-  longitude: z.string(),
+  latitude: z.string({ required_error: "O latitude é obrigatório" }),
+  longitude: z.string({ required_error: "O longitude é obrigatório" }),
 });

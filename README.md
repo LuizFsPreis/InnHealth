@@ -144,3 +144,165 @@ A configuração do serviço de autenticação se encontra em:
 root\lib\auth
 ```
 
+## APIs
+
+### Academia
+
+
+
+**EndPoint:** /api/academia
+
+**Metodo:** GET
+
+**Parâmetros:**
+- page: Pagina requisitada (opcional) <br>
+- limit: Limite de itens por página (opcional) <br>
+- param: Parâmetro utilizado para filtro por nome (opcional) 
+
+**Retorno:**
+```json
+{
+    "academias": [
+        {
+            "id": String,
+            "nome": String,
+            "descricao": String,
+            "telefone": String,
+            "latitude": String,
+            "longitude": String
+        }
+    ],
+    "totalCount": Number
+}
+```
+
+<br>
+<br>
+
+**EndPoint:** /api/academia/cadastrar
+
+**Metodo:** POST
+
+**Parâmetros:** Todos campos são obrigatórios
+
+<br>
+Body de exemplo:
+
+```json
+{
+  "nome": "Academia Exemplo",
+  "descricao": "Uma descrição detalhada sobre a academia.",
+  "telefone": "1234567890",
+  "latitude": "-23.550520",
+  "longitude": "-46.633308"
+}
+```
+
+
+### CheckIn
+
+**EndPoint:** /api/checkin
+
+**Metodo:** GET
+
+**Parâmetros:**
+- page: Pagina requisitada (opcional) <br>
+- limit: Limite de itens por página (opcional) <br>
+- id: Parâmetro utilizado para filtro por id do usuário (obrigatório) 
+
+
+**Retorno:**
+```json
+{
+    "checkins": [
+        {
+            "id": String,
+            "data": String,
+            "nomeAcademia": String,
+            "usuarioId": String,
+            "academiaId": String,
+            "academia": {
+                "nome": String
+            }
+        }
+    ],
+    "totalCount": Number
+}
+```
+<br>
+
+**EndPoint:** /api/checkin/status
+
+**Metodo:** GET
+
+**Parâmetros:** 
+- usuarioId (obrigatório)
+
+**Retorno:**
+```json
+{
+    "status": Boolean
+}
+```
+
+**EndPoint:** /api/checkin/cadastrar
+
+**Metodo:** POST
+
+**Parâmetros:** Todos campos são obrigatórios
+
+<br>
+Body de exemplo:
+
+```json
+{
+  "usuarioId": "ec41cedb-49fd-4073-a16e-ea73d96e9ea7",
+  "academiaId": "ec41cedb-49fd-4073-a16e-ea73d96e9ea7",
+  "nomeAcademia": "Nome da academia de exemplo"
+}
+```
+<br>
+
+### Usuário
+
+
+**EndPoint:** /api/usuario
+
+**Metodo:** GET
+
+**Parâmetros:** 
+- id: id do usuário que será usado como filtro (obrigatório)
+
+**Retorno:**
+
+```json
+{
+    "data": {
+        "id": String,
+        "nome": String,
+        "email": String,
+        "senha": String,
+        "papel": String,
+        "criadoEm": String,
+        "atualizadoEm": String,
+        "ultimoAcesso": String
+    }
+}
+```
+<br>
+
+**Metodo:** PUT
+
+**Parâmetros:** Todos campos são obrigatórios
+
+<br>
+Body de exemplo:
+
+```json
+{
+      "id": "ec41cedb-49fd-4073-a16e-ea73d96e9ea7",
+      "nome": "Novo nome do usuário",
+      "email": "Novo email do usuário",
+      "papel": "Novo papel do usuário",
+}
+```
