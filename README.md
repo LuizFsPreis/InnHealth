@@ -26,7 +26,7 @@
 
 # InnHealth
 
-Site disponível em [inn-health.vercel.app](inn-health.vercel.app)
+Site disponível em <a>inn-health.vercel.app</a>
 
 
 
@@ -53,7 +53,7 @@ Arquivo .env com as variáveis de ambiente está no repositório para facilitar 
 npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000) em seu navegador para assim utilizar a aplicação.
+Abra http://localhost:3000 em seu navegador para assim utilizar a aplicação.
 
 
 <br>
