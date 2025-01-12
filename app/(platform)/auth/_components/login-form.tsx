@@ -6,14 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeOffIcon, InfoIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const ID_CREDENTIALS_PROVIDER: string = "auth-email-password";
 export const LoginForm = () => {
-  const router = useRouter();
 
   const [warn, setWarn] = useState<string>();
   const [showPassword, setShowPassword] = useState(false);

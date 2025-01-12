@@ -26,7 +26,7 @@
 
 # InnHealth
 
-Site disponível em [inn-health.vercel.app](inn-health.vercel.app)
+Site disponível em inn-health.vercel.app
 
 
 
@@ -77,11 +77,11 @@ http://localhost:3000/perfil
 Pasta na aplicação:
 
 ```
-app\(platform)\perfil\page.tsx
+root\app\(platform)\perfil\page.tsx
 ```
 
 ### Back-end
-O roteamento das Apis é estrutudo de forma semelhante as demais rotas da aplicação, com o diferencial que se encontram na pasta app\api
+O roteamento das Apis é estruturado de forma semelhante as demais rotas da aplicação, com o diferencial que se encontram na pasta app\api
 
 <br>
 Rota web:
@@ -94,7 +94,7 @@ http://localhost:3000/api/academia
 Pasta na aplicação:
 
 ```
-app\api\academia\route.ts
+root\app\api\academia\route.ts
 ```
 
 <br>
@@ -104,7 +104,7 @@ app\api\academia\route.ts
 As Server Actions da aplicação se encontram na pasta actions, na raiz do projeto. 
 
 ```
-actions\index.ts
+root\actions\index.ts
 ```
 
 ### Disclaimer
@@ -128,5 +128,19 @@ As Rotas especificadas podem ser encontradas no seguinte bloco:
 
 ```ts
 export const config = { matcher: ["/perfil/", '/academia/cadastrar'] };
+```
+
+<br>
+
+## Autenticação
+
+### NextAuth    
+A autenticação da aplicação é feita via jwt utilizando a biblioteca NextAuth, a mesma foi escolhida pela sua flexibilidade e facilidade de configuração. Além da autenticação via email, o NextAuth possui suporte a integração com outros serviços como Google e GitHub.
+
+<br>
+A configuração do serviço de autenticação se encontra em:
+
+```
+root\lib\auth
 ```
 

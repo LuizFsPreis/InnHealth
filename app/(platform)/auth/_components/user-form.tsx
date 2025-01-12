@@ -7,6 +7,7 @@ import {
   UsuarioUpsertSchema,
 } from "@/actions/usuario/schema";
 import { useAction } from "@/hooks/use-action";
+import { authLoginRoute } from "@/lib/routes";
 import { cn } from "@/lib/utlis";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Usuario } from "@prisma/client";
@@ -40,26 +41,20 @@ export const UserForm = ({ user }: { user?: Usuario }) => {
     },
   });
 
-  const { create, update } = action.usuario();
+  const { create } = action.usuario();
 
   const { execute } = useAction(create, {
     onSuccess: ({ id }) => {
       setWarn("Usuário criado com sucesso.");
-      router.push(`/auth/login`);
+      router.push(authLoginRoute);
     },
-    onError: setWarn,
-  });
-
-  const { execute: executeUpdate } = useAction(update, {
-    onSuccess: () => setWarn("Usuário atualizado com sucesso."),
     onError: setWarn,
   });
 
   const onSubmit = async (data: z.infer<typeof UsuarioUpsertSchema>) => {
     setWarn(undefined);
 
-    if (user) await executeUpdate(UsuarioUpdateSchema.parse(data));
-    else await execute(UsuarioSchema.parse(data));
+    await execute(UsuarioSchema.parse(data));
   };
 
   return (

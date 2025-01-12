@@ -20,6 +20,9 @@ export default function Feed() {
   useEffect(() => {
     setisSearching(true)
     
+    //----------------------------//
+    // Realiza busca dos CheckIns //
+    //----------------------------//
     const fetchAcademias = async () => {
       try {
         const res = await fetch(`/api/checkin?id=${session.data?.user?.id}`);
@@ -27,12 +30,11 @@ export default function Feed() {
         if (!res.ok) return;
         
         const data = await res.json();
-        console.log(data)
         setcheckins(data.checkins);
         setTotal(data.totalCount);
-        setisSearching(false); 
+        setisSearching(false);  
       } catch (error) {
-        console.error(error);
+        console.error("Erro ao buscar CheckIns");
       }
     };
 

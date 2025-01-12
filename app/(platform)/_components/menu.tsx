@@ -76,7 +76,6 @@ export const Menu = ({ children: items }: { children: React.ReactNode }) => {
         <ul
   className="no-scrollbar flex h-full snap-y flex-col gap-y-4 overflow-y-scroll text-center uppercase *:rounded *:bg-mercury/50 *:px-8 *:py-2"
   onClick={(e) => {
-    // Verifica se o clique foi em um link ou fora do EditPerfil
     if (
       e.target instanceof HTMLAnchorElement || 
       (e.target instanceof HTMLElement && !e.target.closest(".edit-perfil"))

@@ -17,32 +17,40 @@ export default function Map({ setCoordinates }: MapProps) {
   ]);
   const [address, setAddress] = useState("");
 
+  //---------------------------------//
+  // Atualiza a visualização do mapa //
+  //---------------------------------//
   const MapUpdater = () => {
     const map = useMap();
 
     useEffect(() => {
       if (map) {
-        map.setView(position); // Apenas altera a vista, sem reiniciar o mapa
+        map.setView(position);
       }
     }, [position, map]);
 
     return null;
   };
 
+  //---------------------------------//
+  // Controllador de eventos do mapa //
+  //---------------------------------//
   const MapEvents = () => {
     useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
         setPosition([lat, lng]);
         setCoordinates(lat.toString(), lng.toString());
-        getAddressFromCoordinates(lat, lng); // Busca endereço via coordenada
+        getAddressFromCoordinates(lat, lng); 
       },
     });
 
     return null;
   };
 
-  // Função para buscar o nome do endereço baseado nas coordenadas
+  //---------------------------------------------------------------//
+  // Função para buscar o nome do endereço baseado nas coordenadas //
+  //---------------------------------------------------------------//
   const getAddressFromCoordinates = async (lat: number, lng: number) => {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`
@@ -59,6 +67,9 @@ export default function Map({ setCoordinates }: MapProps) {
     }
   };
 
+  //-----------------------------------------------//
+  // Busca as coordenadas de acordo com o endereço //
+  //-----------------------------------------------//
   const handleSearch = async () => {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/search?format=json&q=${address}`

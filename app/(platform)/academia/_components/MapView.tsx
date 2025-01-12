@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L, { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// Componente que será renderizado no servidor com as coordenadas iniciais
 export default function MapView({
   lat = -23.55052,
   lng = -46.633308,
@@ -12,7 +11,8 @@ export default function MapView({
   lat?: number;
   lng?: number;
 }) {
-  const position: LatLngTuple = [lat, lng];  // Define as coordenadas iniciais para o mapa
+  
+  const position: LatLngTuple = [lat, lng];  
   
   return (
     <div className="flex flex-col items-center p-4 w-full">

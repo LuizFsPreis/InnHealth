@@ -20,6 +20,9 @@ export default function FormAcademia() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
+  //---------------------------------//
+  // Atualiza os dados do formulario //
+  //---------------------------------//
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,6 +33,9 @@ export default function FormAcademia() {
     }));
   };
 
+  //----------------------------------------//
+  // Controla envio dos dados para cadastro //
+  //----------------------------------------//
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = AcademiaSchema.safeParse(formData);
@@ -54,8 +60,6 @@ export default function FormAcademia() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
         setAlertMessage("Academia cadastrada com sucesso!");
       } else {
@@ -74,6 +78,9 @@ export default function FormAcademia() {
     }
   };
 
+  //----------------------------------------------------------------//
+  // Seta as cordenadas do form (É passada como referência ao mapa) //
+  //----------------------------------------------------------------//
   const setCoordinates = (lat: string, lng: string) => {
     setFormData((prevData) => ({
       ...prevData,

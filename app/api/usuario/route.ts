@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    // Obtém os parâmetros de busca da URL
     const id = request.nextUrl.searchParams.get("id");
 
     if (!id) {
@@ -13,7 +12,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Busca o usuário no banco de dados
     const user = await action.usuario().find({
       where: { id: id },
     });
@@ -34,7 +32,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Método PUT para atualizar as informações de um usuário específico
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
@@ -46,7 +43,6 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Atualiza o usuário no banco de dados
     const updatedUser = await action.usuario().update({
       id: body.id,
       nome: body.nome,

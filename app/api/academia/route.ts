@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   const nome = params.get("param");
 
   try {
-    // Filtro de busca baseano n o nome
     const where: Prisma.AcademiaWhereInput = nome
       ? {
           nome: {

@@ -7,6 +7,7 @@ import ModalCheckin from "../modals/ModalCheckin";
 export default function CardAcademia({ academia }: { academia: Academia }) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const session = useSession();
+
   const MENSAGEM = `Olá, me chamo ${session?.data?.user?.name} e gostaria de entrar em contato com você!`;
 
   const handleClick = () => {

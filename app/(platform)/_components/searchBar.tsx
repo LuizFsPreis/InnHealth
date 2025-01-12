@@ -8,6 +8,9 @@ export default function SearchBar() {
     const [inputValue, setInputValue] = useState("");
     const [debouncedValue, setDebouncedValue] = useState(inputValue);
 
+    //-----------------------------------------//
+    // Atualiza o timer de otimização da busca //
+    //-----------------------------------------//
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedValue(inputValue);
@@ -18,10 +21,13 @@ export default function SearchBar() {
         };
     }, [inputValue]);
 
+    //--------------//
+    // Efetua busca //
+    //--------------//
     useEffect(() => {
         setSearchParam(debouncedValue);
         setisSearching(true)
-    }, [debouncedValue, setSearchParam]);
+    }, [debouncedValue]);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);

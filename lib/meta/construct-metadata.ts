@@ -16,7 +16,7 @@ export const constructMetadata = ({
     ],
     creator: 'Luiz Fernando',
     authors: [
-      { name: 'Luiz Fernando de Souza Preis', url: 'https://github.com/SrBaldoino' },
+      { name: 'Luiz Fernando de Souza Preis', url: 'https://github.com/LuizFsPreis' },
     ],
     keywords: [
       'Teste Innova',

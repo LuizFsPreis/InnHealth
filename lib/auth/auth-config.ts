@@ -5,6 +5,7 @@ import { isPasswordValid } from './hash'
 import { action } from '@/actions'
 
 const ID_CREDENTIALS_PROVIDER: string = 'auth-email-password';
+
 export const authConfig: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: { signIn: authLoginRoute },

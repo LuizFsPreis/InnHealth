@@ -34,9 +34,8 @@ export default function Feed() {
     };
 
     fetchAcademias();
-  }, [setisSearching, page, searchParam]);
+  }, [page, searchParam]);
 
-  // Calcular o número total de páginas
   const totalPages = total / limit;
 
   return (

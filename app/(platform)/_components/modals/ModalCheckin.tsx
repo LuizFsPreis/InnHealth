@@ -31,6 +31,10 @@ export default function ModalCheckin({
       const checkinUserId = Cookies.get("checkinUserId");
       const today = new Date().toISOString().split("T")[0];
 
+      //--------------------------------------------------------------//
+      // Verifica a data e usuario do ultimo checkin é igual ao atual //
+      //            Evitando requisições desnecessárias               //
+      //--------------------------------------------------------------//
       if (checkinCookie === today && checkinUserId === session.data?.user?.id) {
         setAlertMessage("Check-in já realizado hoje.");
         setAlertVisible(true);
@@ -46,7 +50,9 @@ export default function ModalCheckin({
 
       const lastCheckinData = await response.json();
     
-
+      //-------------------------------------------------//
+      // Verifica se o ultimo checkIn foi realizado hoje //
+      //-------------------------------------------------//
       if (lastCheckinData.status) {
         setAlertMessage("Check-in já realizado hoje.");
         setAlertVisible(true);
@@ -55,6 +61,9 @@ export default function ModalCheckin({
       }
 
 
+      //-------------------------------//
+      // Efetua requisição de cadastro //
+      //-------------------------------//
       const res = await fetch("/api/checkin/cadastrar", {
         method: "POST",
         headers: {
@@ -71,6 +80,9 @@ export default function ModalCheckin({
         console.error("Falha ao fazer check-in");
       }
 
+      //-------------------------//
+      // Seta cookies do CheckIn //
+      //-------------------------//
       Cookies.set("checkinDate", today, { expires:  1 });
       Cookies.set("checkinUserId", session.data?.user?.id ?? '', { expires:  1 });
 
