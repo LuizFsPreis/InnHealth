@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Teste Técnico Innova
 
-## Getting Started
+## Requisitos de negócio
 
-First, run the development server:
+1. Deve ser possível se cadastrar (Nome, E-mail e Senha);
+2. Deve ser possível se autenticar (E-mail e Senha);
+3. Deve ser possível cadastrar uma academia (Nome, Descrição, Telefone, Latitude e longitude);
+4. Deve ser possível obter o perfil de um usuário logado;
+5. Deve ser possível o usuário obter o seu histórico de check-ins;
+6. Deve ser possível o usuário buscar academias pelo nome;
+7. Deve ser possível o usuário realizar check-in em uma academia;
+
+## RNs (Regras de negócio)
+
+1. O usuário não deve poder se cadastrar com um e-mail duplicado;
+2. O usuário não pode fazer 2 check-ins no mesmo dia;
+3. A academia só pode ser cadastrada por administradores;
+
+## RNFs (Requisitos não-funcionais)
+1.  A senha do usuário precisa estar criptografada;
+2.  Todas listas de dados precisam estar paginadas com 20 itens por página;
+3.  O usuário deve ser identificado por um JWT (JSON Web Token);
+
+<br>
+<br>
+
+# InnHealth
+
+Site disponível em [inn-health.vercel.app](inn-health.vercel.app)
+
+
+
+
+### Tecnologias
+
+- TypeScript (Linguagem)
+- NextJs (FrameWork)
+- Prisma (ORM)
+- Prostgres (BD)
+
+
+### Instalação
+
+```bash
+npm install
+```
+
+### Iniciar serviço
+
+Arquivo .env com as variáveis de ambiente está no repositório para facilitar a avaliação do teste.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) em seu navegador para assim utilizar a aplicação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br>
 
-## Learn More
+# Estrutura do Projeto
 
-To learn more about Next.js, take a look at the following resources:
+## Roteamento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Front-end
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Páginas da aplicação se encontram dentro da pasta (platform).<br>
+Em NextJS o roteamento é feito pela estrutura das pastas, logo para alterar a página "Perfil", basta seguir o caminho app\\(platform)\perfil\page.tsx. Este padrão se repete para as demais rotas do front-end.
 
-## Deploy on Vercel
+<br>
+Rota web:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+http://localhost:3000/perfil
+```
+<br>
+Pasta na aplicação:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+app\(platform)\perfil\page.tsx
+```
+
+### Back-end
+O roteamento das Apis é estrutudo de forma semelhante as demais rotas da aplicação, com o diferencial que se encontram na pasta app\api
+
+<br>
+Rota web:
+
+```
+http://localhost:3000/api/academia
+```
+
+<br>
+Pasta na aplicação:
+
+```
+app\api\academia\route.ts
+```
+
+<br>
+
+## Server Actions
+
+As Server Actions da aplicação se encontram na pasta actions, na raiz do projeto. 
+
+```
+actions\index.ts
+```
+
+### Disclaimer
+
+As server actions podem ser usada no projeto como um todo, evitando criação de rotas desnecessárias. Durante o desenvolvimento deste projeto optei pela criação de rotas de API consumindo as server actions e servindo os dados ao cliente, assim demonstrando conhecimento na criação e consumo de api via front-end.
+
+## Middleware
+
+<br>
+Middleware se encontra na raiz do projeto
+
+```
+root\middleware.ts
+```
+
+O middleware é responsável por verificar toda requisição que ocorre nas rotas especificadas.
+Neste projeto, optei por verificar apenas se o cliente está autenticado, caso não o retorna a página de login. 
+
+<br>
+As Rotas especificadas podem ser encontradas no seguinte bloco:
+
+```ts
+export const config = { matcher: ["/perfil/", '/academia/cadastrar'] };
+```
+
